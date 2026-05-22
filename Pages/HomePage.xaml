@@ -1,0 +1,927 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LandersSuperstore.Pages.HomePage"
+             Title="HomePage">
+  
+
+        <ContentPage.Content>
+            <Grid RowDefinitions="Auto,*,Auto">
+
+                <!-- ─────────────────────────────────────────── -->
+                <!--  ROW 0 : TOP HEADER BAR                     -->
+                <!-- ─────────────────────────────────────────── -->
+                <Grid Grid.Row="0"
+                  BackgroundColor="{StaticResource PrimaryRed}"
+                  ColumnDefinitions="*,Auto,Auto"
+                  Padding="16,50,16,16">
+
+                    <!-- Greeting + Address -->
+                    <VerticalStackLayout Grid.Column="0" VerticalOptions="Center">
+                        <Label Text="Good Morning 👋"
+                           FontSize="12"
+                           TextColor="#FFCDD2"/>
+                        <Label Text="Juan dela Cruz"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource White}"/>
+                        <HorizontalStackLayout Spacing="4" Margin="0,2,0,0">
+                            <Label Text="📍" FontSize="12" TextColor="#FFCDD2"/>
+                            <Label Text="Cebu City, Philippines"
+                               FontSize="12"
+                               TextColor="#FFCDD2"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                    <!-- Notification Bell -->
+                    <Button Grid.Column="1"
+                        Text="🔔"
+                        FontSize="20"
+                        BackgroundColor="#CC3333"
+                        TextColor="{StaticResource White}"
+                        CornerRadius="22"
+                        HeightRequest="44"
+                        WidthRequest="44"
+                        Padding="0"
+                        Margin="0,0,8,0"
+                        x:Name="BtnNotifications"
+                        Clicked="OnNotificationsClicked"/>
+
+                    <!-- Cart Button -->
+                    <Grid Grid.Column="2">
+                        <Button Text="🛒"
+                            FontSize="20"
+                            BackgroundColor="{StaticResource AccentGold}"
+                            TextColor="{StaticResource White}"
+                            CornerRadius="22"
+                            HeightRequest="44"
+                            WidthRequest="44"
+                            Padding="0"
+                            x:Name="BtnCart"
+                            Clicked="OnCartClicked"/>
+                        <!-- Cart Badge -->
+                        <Border BackgroundColor="{StaticResource White}"
+                            StrokeThickness="0"
+                            HeightRequest="18"
+                            WidthRequest="18"
+                            HorizontalOptions="End"
+                            VerticalOptions="Start"
+                            Margin="0,-4,-4,0">
+                            <Border.StrokeShape>
+                                <Ellipse/>
+                            </Border.StrokeShape>
+                            <Label Text="3"
+                               FontSize="10"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource PrimaryRed}"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        </Border>
+                    </Grid>
+                </Grid>
+
+                <!-- ─────────────────────────────────────────── -->
+                <!--  ROW 1 : MAIN SCROLLABLE CONTENT            -->
+                <!-- ─────────────────────────────────────────── -->
+                <ScrollView Grid.Row="1">
+                    <VerticalStackLayout Spacing="0">
+
+                        <!-- ═══════════════════════════════════ -->
+                        <!--  SEARCH BAR                         -->
+                        <!-- ═══════════════════════════════════ -->
+                        <Border BackgroundColor="{StaticResource White}"
+                            StrokeThickness="0"
+                            Margin="16,16,16,8"
+                            Shadow="{StaticResource CardShadow}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="14"/>
+                            </Border.StrokeShape>
+                            <Grid ColumnDefinitions="Auto,*,Auto" Padding="12,0">
+                                <Label Grid.Column="0"
+                                   Text="🔍"
+                                   FontSize="18"
+                                   VerticalOptions="Center"
+                                   Margin="0,0,8,0"/>
+                                <Entry Grid.Column="1"
+                                   x:Name="SearchEntry"
+                                   Placeholder="Search groceries, brands…"
+                                   Style="{StaticResource SearchEntry}"
+                                   HeightRequest="50"
+                                   ReturnCommand="{Binding SearchCommand}"
+                                   TextChanged="OnSearchTextChanged"/>
+                                <Button Grid.Column="2"
+                                    Text="Filter"
+                                    FontSize="12"
+                                    FontAttributes="Bold"
+                                    BackgroundColor="{StaticResource PrimaryRedLight}"
+                                    TextColor="{StaticResource PrimaryRed}"
+                                    CornerRadius="8"
+                                    HeightRequest="34"
+                                    Padding="12,0"
+                                    x:Name="BtnFilter"
+                                    Clicked="OnFilterClicked"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- ═══════════════════════════════════ -->
+                        <!--  MEMBER BANNER                      -->
+                        <!-- ═══════════════════════════════════ -->
+                        <Border Margin="16,8"
+                            StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="16"/>
+                            </Border.StrokeShape>
+                            <Grid>
+                                <!-- Background Gradient -->
+                                <BoxView>
+                                    <BoxView.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Color="#EF4444" Offset="0"/>
+                                            <GradientStop Color="#B91C1C" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </BoxView.Background>
+                                </BoxView>
+                                <!-- Content -->
+                                <Grid ColumnDefinitions="*,Auto" Padding="20,18">
+                                    <VerticalStackLayout Grid.Column="0" Spacing="6">
+                                        <Border BackgroundColor="#FFFFFF33"
+                                            StrokeThickness="0"
+                                            HorizontalOptions="Start"
+                                            Padding="8,4">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="6"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="⭐ MEMBERS EXCLUSIVE"
+                                               FontSize="10"
+                                               FontAttributes="Bold"
+                                               TextColor="{StaticResource White}"/>
+                                        </Border>
+                                        <Label Text="Save up to 50% Off!"
+                                           FontSize="20"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource White}"/>
+                                        <Label Text="Unlock exclusive wholesale prices today."
+                                           FontSize="12"
+                                           TextColor="#FFCDD2"/>
+                                       
+                                    </VerticalStackLayout>
+                                    <Label Grid.Column="1"
+                                       Text="🏷️"
+                                       FontSize="52"
+                                       VerticalOptions="Center"
+                                       Opacity="0.5"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+
+                        <!-- ═══════════════════════════════════ -->
+                        <!--  QUICK STATS ROW                    -->
+                        <!-- ═══════════════════════════════════ -->
+                        <Grid ColumnDefinitions="*,*,*"
+                          Margin="16,0,16,8"
+                          ColumnSpacing="10">
+
+                            <!-- Free Delivery -->
+                            <Border Grid.Column="0"
+                                Style="{StaticResource Card}"
+                                Padding="12">
+                                <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+                                    <Label Text="🚚" FontSize="24" HorizontalOptions="Center"/>
+                                    <Label Text="Free Delivery"
+                                       FontSize="11"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource TextDark}"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center"/>
+                                    <Label Text="Over ₱2,500"
+                                       FontSize="10"
+                                       TextColor="{StaticResource TextLight}"
+                                       HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <!-- Same Day -->
+                            <Border Grid.Column="1"
+                                Style="{StaticResource Card}"
+                                Padding="12">
+                                <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+                                    <Label Text="⚡" FontSize="24" HorizontalOptions="Center"/>
+                                    <Label Text="Same Day"
+                                       FontSize="11"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource TextDark}"
+                                       HorizontalOptions="Center"/>
+                                    <Label Text="Order by 2PM"
+                                       FontSize="10"
+                                       TextColor="{StaticResource TextLight}"
+                                       HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <!-- Easy Returns -->
+                            <Border Grid.Column="2"
+                                Style="{StaticResource Card}"
+                                Padding="12">
+                                <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+                                    <Label Text="↩️" FontSize="24" HorizontalOptions="Center"/>
+                                    <Label Text="Easy Returns"
+                                       FontSize="11"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource TextDark}"
+                                       HorizontalOptions="Center"/>
+                                    <Label Text="7-day policy"
+                                       FontSize="10"
+                                       TextColor="{StaticResource TextLight}"
+                                       HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+                            </Border>
+                        </Grid>
+
+                        <!-- ═══════════════════════════════════ -->
+                        <!--  SHOP BY CATEGORY                   -->
+                        <!-- ═══════════════════════════════════ -->
+                        <Grid ColumnDefinitions="*,Auto"
+                          Margin="16,12,16,10">
+                            <Label Grid.Column="0"
+                               Text="Shop by Category"
+                               Style="{StaticResource SectionTitle}"/>
+                            <Button Grid.Column="1"
+                                Text="View All"
+                                Style="{StaticResource SecondaryButton}"
+                                FontSize="12"
+                                HeightRequest="32"
+                                Padding="12,0"
+                                x:Name="BtnViewAllCategories"
+                                Clicked="OnViewAllCategoriesClicked"/>
+                        </Grid>
+
+                        <!-- Category Chips (Horizontal Scroll) -->
+                        <ScrollView Orientation="Horizontal"
+                                HorizontalScrollBarVisibility="Never"
+                                Margin="16,0,0,0">
+                            <HorizontalStackLayout Spacing="10" Padding="0,4,16,4">
+
+                                <Button x:Name="BtnCatAll"
+                                    Text="All"
+                                    BackgroundColor="{StaticResource PrimaryRed}"
+                                    TextColor="{StaticResource White}"
+                                    FontSize="13" FontAttributes="Bold"
+                                    CornerRadius="20" HeightRequest="38" Padding="16,0"
+                                    Clicked="OnCategoryClicked"/>
+                                <Button x:Name="BtnCatGrocery"
+                                    Text="🛒 Grocery"
+                                    Style="{StaticResource SecondaryButton}"
+                                    FontSize="13" HeightRequest="38" Padding="14,0"
+                                    Clicked="OnCategoryClicked"/>
+                                <Button x:Name="BtnCatFrozen"
+                                    Text="❄️ Frozen Foods"
+                                    Style="{StaticResource SecondaryButton}"
+                                    FontSize="13" HeightRequest="38" Padding="14,0"
+                                    Clicked="OnCategoryClicked"/>
+                                <Button x:Name="BtnCatBeverages"
+                                    Text="🥤 Beverages"
+                                    Style="{StaticResource SecondaryButton}"
+                                    FontSize="13" HeightRequest="38" Padding="14,0"
+                                    Clicked="OnCategoryClicked"/>
+                                <Button x:Name="BtnCatProduce"
+                                    Text="🥦 Fresh Produce"
+                                    Style="{StaticResource SecondaryButton}"
+                                    FontSize="13" HeightRequest="38" Padding="14,0"
+                                    Clicked="OnCategoryClicked"/>
+                                <Button x:Name="BtnCatMeat"
+                                    Text="🥩 Meat &amp; Seafood"
+                                    Style="{StaticResource SecondaryButton}"
+                                    FontSize="13" HeightRequest="38" Padding="14,0"
+                                    Clicked="OnCategoryClicked"/>
+                                <Button x:Name="BtnCatImported"
+                                    Text="🌍 Imported Goods"
+                                    Style="{StaticResource SecondaryButton}"
+                                    FontSize="13" HeightRequest="38" Padding="14,0"
+                                    Clicked="OnCategoryClicked"/>
+                                <Button x:Name="BtnCatBakery"
+                                    Text="🍞 Bakery"
+                                    Style="{StaticResource SecondaryButton}"
+                                    FontSize="13" HeightRequest="38" Padding="14,0"
+                                    Clicked="OnCategoryClicked"/>
+                                <Button x:Name="BtnCatDairy"
+                                    Text="🥛 Dairy &amp; Eggs"
+                                    Style="{StaticResource SecondaryButton}"
+                                    FontSize="13" HeightRequest="38" Padding="14,0"
+                                    Clicked="OnCategoryClicked"/>
+                            </HorizontalStackLayout>
+                        </ScrollView>
+
+                        <!-- ═══════════════════════════════════ -->
+                        <!--  FEATURED PRODUCTS                  -->
+                        <!-- ═══════════════════════════════════ -->
+                        <Grid ColumnDefinitions="*,Auto"
+                          Margin="16,16,16,10">
+                            <Label Grid.Column="0"
+                               Text="Featured Products"
+                               Style="{StaticResource SectionTitle}"/>
+                            <Button Grid.Column="1"
+                                Text="View All"
+                                Style="{StaticResource SecondaryButton}"
+                                FontSize="12"
+                                HeightRequest="32"
+                                Padding="12,0"
+                                x:Name="BtnViewAllFeatured"
+                                Clicked="OnViewAllProductsClicked"/>
+                        </Grid>
+
+                        <!-- Product Cards (2-Column Grid) -->
+                        <Grid ColumnDefinitions="*,*"
+                          RowDefinitions="Auto,Auto,Auto,Auto"
+                          Margin="16,0"
+                          ColumnSpacing="12"
+                          RowSpacing="12">
+
+                            <!-- Product Card 1 -->
+                            <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource Card}" Padding="12">
+                                <VerticalStackLayout Spacing="6">
+                                    <!-- Discount Badge -->
+                                    <Grid>
+                                        <Border BackgroundColor="{StaticResource LightGray}"
+                                            StrokeThickness="0"
+                                            HeightRequest="110">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="🍚" FontSize="52"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                        </Border>
+                                        <Border BackgroundColor="{StaticResource PrimaryRed}"
+                                            StrokeThickness="0"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="Start"
+                                            Margin="6,6,0,0"
+                                            Padding="5,2">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="6"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="-10%" FontSize="10" FontAttributes="Bold"
+                                               TextColor="{StaticResource White}"/>
+                                        </Border>
+                                    </Grid>
+                                    <Label Text="Jasmine Rice 5kg"
+                                       Style="{StaticResource CardTitle}"
+                                       LineBreakMode="TailTruncation"/>
+                                    <Label Text="⭐ 4.8  (234 reviews)"
+                                       FontSize="11"
+                                       TextColor="{StaticResource DarkGray}"/>
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <VerticalStackLayout Grid.Column="0" Spacing="0">
+                                            <Label Text="₱450.00" Style="{StaticResource PriceLabel}" FontSize="15"/>
+                                            <Label Text="₱499.00"
+                                               FontSize="11"
+                                               TextColor="{StaticResource TextLight}"
+                                               TextDecorations="Strikethrough"/>
+                                        </VerticalStackLayout>
+                                        <Button Grid.Column="1"
+                                            Text="+"
+                                            Style="{StaticResource IconButton}"
+                                            FontSize="22"
+                                            x:Name="BtnAddRice"
+                                            Clicked="OnAddToCartClicked"/>
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <!-- Product Card 2 -->
+                            <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource Card}" Padding="12">
+                                <VerticalStackLayout Spacing="6">
+                                    <Grid>
+                                        <Border BackgroundColor="{StaticResource LightGray}"
+                                            StrokeThickness="0"
+                                            HeightRequest="110">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="🫒" FontSize="52"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                        </Border>
+                                        <Border BackgroundColor="{StaticResource PrimaryRed}"
+                                            StrokeThickness="0"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="Start"
+                                            Margin="6,6,0,0"
+                                            Padding="5,2">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="6"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="-11%" FontSize="10" FontAttributes="Bold"
+                                               TextColor="{StaticResource White}"/>
+                                        </Border>
+                                    </Grid>
+                                    <Label Text="Olive Oil 1L"
+                                       Style="{StaticResource CardTitle}"/>
+                                    <Label Text="⭐ 4.9  (156 reviews)"
+                                       FontSize="11"
+                                       TextColor="{StaticResource DarkGray}"/>
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <VerticalStackLayout Grid.Column="0" Spacing="0">
+                                            <Label Text="₱850.00" Style="{StaticResource PriceLabel}" FontSize="15"/>
+                                            <Label Text="₱950.00"
+                                               FontSize="11"
+                                               TextColor="{StaticResource TextLight}"
+                                               TextDecorations="Strikethrough"/>
+                                        </VerticalStackLayout>
+                                        <Button Grid.Column="1"
+                                            Text="+"
+                                            Style="{StaticResource IconButton}"
+                                            FontSize="22"
+                                            x:Name="BtnAddOlive"
+                                            Clicked="OnAddToCartClicked"/>
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <!-- Product Card 3 -->
+                            <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource Card}" Padding="12">
+                                <VerticalStackLayout Spacing="6">
+                                    <Grid>
+                                        <Border BackgroundColor="{StaticResource LightGray}"
+                                            StrokeThickness="0"
+                                            HeightRequest="110">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="🍦" FontSize="52"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                        </Border>
+                                        <Border BackgroundColor="{StaticResource PrimaryRed}"
+                                            StrokeThickness="0"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="Start"
+                                            Margin="6,6,0,0"
+                                            Padding="5,2">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="6"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="-13%" FontSize="10" FontAttributes="Bold"
+                                               TextColor="{StaticResource White}"/>
+                                        </Border>
+                                    </Grid>
+                                    <Label Text="Ice Cream 1L"
+                                       Style="{StaticResource CardTitle}"/>
+                                    <Label Text="⭐ 4.9  (312 reviews)"
+                                       FontSize="11"
+                                       TextColor="{StaticResource DarkGray}"/>
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <VerticalStackLayout Grid.Column="0" Spacing="0">
+                                            <Label Text="₱420.00" Style="{StaticResource PriceLabel}" FontSize="15"/>
+                                            <Label Text="₱480.00"
+                                               FontSize="11"
+                                               TextColor="{StaticResource TextLight}"
+                                               TextDecorations="Strikethrough"/>
+                                        </VerticalStackLayout>
+                                        <Button Grid.Column="1"
+                                            Text="+"
+                                            Style="{StaticResource IconButton}"
+                                            FontSize="22"
+                                            x:Name="BtnAddIceCream"
+                                            Clicked="OnAddToCartClicked"/>
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <!-- Product Card 4 — NEW badge -->
+                            <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource Card}" Padding="12">
+                                <VerticalStackLayout Spacing="6">
+                                    <Grid>
+                                        <Border BackgroundColor="{StaticResource LightGray}"
+                                            StrokeThickness="0"
+                                            HeightRequest="110">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="🥩" FontSize="52"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                        </Border>
+                                        <Border BackgroundColor="{StaticResource SuccessGreen}"
+                                            StrokeThickness="0"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="Start"
+                                            Margin="6,6,0,0"
+                                            Padding="5,2">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="6"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="NEW" FontSize="10" FontAttributes="Bold"
+                                               TextColor="{StaticResource White}"/>
+                                        </Border>
+                                    </Grid>
+                                    <Label Text="Wagyu Beef 500g"
+                                       Style="{StaticResource CardTitle}"/>
+                                    <Label Text="⭐ 5.0  (42 reviews)"
+                                       FontSize="11"
+                                       TextColor="{StaticResource DarkGray}"/>
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <VerticalStackLayout Grid.Column="0" Spacing="0">
+                                            <Label Text="₱4,500" Style="{StaticResource PriceLabel}" FontSize="15"/>
+                                            <Label Text="₱5,000"
+                                               FontSize="11"
+                                               TextColor="{StaticResource TextLight}"
+                                               TextDecorations="Strikethrough"/>
+                                        </VerticalStackLayout>
+                                        <Button Grid.Column="1"
+                                            Text="+"
+                                            Style="{StaticResource IconButton}"
+                                            FontSize="22"
+                                            x:Name="BtnAddWagyu"
+                                            Clicked="OnAddToCartClicked"/>
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Border>
+
+                        </Grid>
+
+                        <!-- "Load More" Button -->
+                        <Button Text="Load More Products"
+                            Style="{StaticResource OutlineButton}"
+                            Margin="16,16,16,8"
+                            x:Name="BtnLoadMore"
+                            Clicked="OnLoadMoreClicked"/>
+
+                        <!-- ═══════════════════════════════════ -->
+                        <!--  BEST SELLERS                       -->
+                        <!-- ═══════════════════════════════════ -->
+                        <Grid ColumnDefinitions="*,Auto"
+                          Margin="16,16,16,10">
+                            <Label Grid.Column="0"
+                               Text="🔥 Best Sellers"
+                               Style="{StaticResource SectionTitle}"/>
+                            <Button Grid.Column="1"
+                                Text="View All"
+                                Style="{StaticResource SecondaryButton}"
+                                FontSize="12"
+                                HeightRequest="32"
+                                Padding="12,0"
+                                x:Name="BtnViewAllBestSellers"
+                                Clicked="OnViewAllProductsClicked"/>
+                        </Grid>
+
+                        <!-- Horizontal Best Seller Cards -->
+                        <ScrollView Orientation="Horizontal"
+                                HorizontalScrollBarVisibility="Never"
+                                Margin="16,0,0,0">
+                            <HorizontalStackLayout Spacing="12" Padding="0,4,16,4">
+
+                                <!-- BS Card 1 -->
+                                <Border Style="{StaticResource Card}" WidthRequest="150" Padding="12">
+                                    <VerticalStackLayout Spacing="6">
+                                        <Border BackgroundColor="{StaticResource LightGray}"
+                                            StrokeThickness="0"
+                                            HeightRequest="90">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="🥚" FontSize="44"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                        </Border>
+                                        <Label Text="Free Range Eggs 12-pack"
+                                           FontSize="13"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource TextDark}"
+                                           LineBreakMode="TailTruncation"/>
+                                        <Label Text="⭐ 4.8" FontSize="11" TextColor="{StaticResource DarkGray}"/>
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <Label Grid.Column="0"
+                                               Text="₱180.00"
+                                               Style="{StaticResource PriceLabel}"
+                                               FontSize="14"/>
+                                            <Button Grid.Column="1"
+                                                Text="+"
+                                                BackgroundColor="{StaticResource PrimaryRed}"
+                                                TextColor="{StaticResource White}"
+                                                FontSize="16"
+                                                CornerRadius="18"
+                                                HeightRequest="36"
+                                                WidthRequest="36"
+                                                Padding="0"
+                                                Clicked="OnAddToCartClicked"/>
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </Border>
+
+                                <!-- BS Card 2 -->
+                                <Border Style="{StaticResource Card}" WidthRequest="150" Padding="12">
+                                    <VerticalStackLayout Spacing="6">
+                                        <Border BackgroundColor="{StaticResource LightGray}"
+                                            StrokeThickness="0"
+                                            HeightRequest="90">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="☕" FontSize="44"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                        </Border>
+                                        <Label Text="Coffee Beans 500g"
+                                           FontSize="13"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource TextDark}"
+                                           LineBreakMode="TailTruncation"/>
+                                        <Label Text="⭐ 4.8" FontSize="11" TextColor="{StaticResource DarkGray}"/>
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <Label Grid.Column="0"
+                                               Text="₱650.00"
+                                               Style="{StaticResource PriceLabel}"
+                                               FontSize="14"/>
+                                            <Button Grid.Column="1"
+                                                Text="+"
+                                                BackgroundColor="{StaticResource PrimaryRed}"
+                                                TextColor="{StaticResource White}"
+                                                FontSize="16"
+                                                CornerRadius="18"
+                                                HeightRequest="36"
+                                                WidthRequest="36"
+                                                Padding="0"
+                                                Clicked="OnAddToCartClicked"/>
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </Border>
+
+                                <!-- BS Card 3 -->
+                                <Border Style="{StaticResource Card}" WidthRequest="150" Padding="12">
+                                    <VerticalStackLayout Spacing="6">
+                                        <Border BackgroundColor="{StaticResource LightGray}"
+                                            StrokeThickness="0"
+                                            HeightRequest="90">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="🍗" FontSize="44"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                        </Border>
+                                        <Label Text="Chicken Breast 1kg"
+                                           FontSize="13"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource TextDark}"
+                                           LineBreakMode="TailTruncation"/>
+                                        <Label Text="⭐ 4.6" FontSize="11" TextColor="{StaticResource DarkGray}"/>
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <Label Grid.Column="0"
+                                               Text="₱320.00"
+                                               Style="{StaticResource PriceLabel}"
+                                               FontSize="14"/>
+                                            <Button Grid.Column="1"
+                                                Text="+"
+                                                BackgroundColor="{StaticResource PrimaryRed}"
+                                                TextColor="{StaticResource White}"
+                                                FontSize="16"
+                                                CornerRadius="18"
+                                                HeightRequest="36"
+                                                WidthRequest="36"
+                                                Padding="0"
+                                                Clicked="OnAddToCartClicked"/>
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </Border>
+
+                                <!-- BS Card 4 -->
+                                <Border Style="{StaticResource Card}" WidthRequest="150" Padding="12">
+                                    <VerticalStackLayout Spacing="6">
+                                        <Border BackgroundColor="{StaticResource LightGray}"
+                                            StrokeThickness="0"
+                                            HeightRequest="90">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="🍌" FontSize="44"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                        </Border>
+                                        <Label Text="Organic Bananas 1kg"
+                                           FontSize="13"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource TextDark}"
+                                           LineBreakMode="TailTruncation"/>
+                                        <Label Text="⭐ 4.6" FontSize="11" TextColor="{StaticResource DarkGray}"/>
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <Label Grid.Column="0"
+                                               Text="₱120.00"
+                                               Style="{StaticResource PriceLabel}"
+                                               FontSize="14"/>
+                                            <Button Grid.Column="1"
+                                                Text="+"
+                                                BackgroundColor="{StaticResource PrimaryRed}"
+                                                TextColor="{StaticResource White}"
+                                                FontSize="16"
+                                                CornerRadius="18"
+                                                HeightRequest="36"
+                                                WidthRequest="36"
+                                                Padding="0"
+                                                Clicked="OnAddToCartClicked"/>
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </Border>
+
+                            </HorizontalStackLayout>
+                        </ScrollView>
+
+                        <!-- ═══════════════════════════════════ -->
+                        <!--  MY ORDERS (Quick Access)           -->
+                        <!-- ═══════════════════════════════════ -->
+                        <Label Text="My Recent Orders"
+                           Style="{StaticResource SectionTitle}"
+                           Margin="16,16,16,10"/>
+
+                        <Border Style="{StaticResource Card}" Margin="16,0,16,8">
+                            <Grid ColumnDefinitions="Auto,*,Auto" Padding="4">
+                                <Border Grid.Column="0"
+                                    BackgroundColor="{StaticResource AccentGoldLight}"
+                                    StrokeThickness="0"
+                                    HeightRequest="48" WidthRequest="48"
+                                    Margin="0,0,12,0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="📦" FontSize="22"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                    <Label Text="Order #LND-20240519"
+                                       Style="{StaticResource CardTitle}"/>
+                                    <Label Text="6 items · ₱1,840.00"
+                                       Style="{StaticResource BodyText}"/>
+                                </VerticalStackLayout>
+                                <Border Grid.Column="2"
+                                    BackgroundColor="{StaticResource SuccessGreenLight}"
+                                    StrokeThickness="0"
+                                    Padding="10,5"
+                                    VerticalOptions="Center">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="Delivered"
+                                       FontSize="12"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource SuccessGreen}"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Border Style="{StaticResource Card}" Margin="16,0,16,8">
+                            <Grid ColumnDefinitions="Auto,*,Auto" Padding="4">
+                                <Border Grid.Column="0"
+                                    BackgroundColor="{StaticResource InfoBlueLight}"
+                                    StrokeThickness="0"
+                                    HeightRequest="48" WidthRequest="48"
+                                    Margin="0,0,12,0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="🚚" FontSize="22"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                    <Label Text="Order #LND-20240518"
+                                       Style="{StaticResource CardTitle}"/>
+                                    <Label Text="3 items · ₱960.00"
+                                       Style="{StaticResource BodyText}"/>
+                                </VerticalStackLayout>
+                                <Border Grid.Column="2"
+                                    BackgroundColor="{StaticResource InfoBlueLight}"
+                                    StrokeThickness="0"
+                                    Padding="10,5"
+                                    VerticalOptions="Center">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="On the Way"
+                                       FontSize="12"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource InfoBlue}"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <Button Text="View All Orders"
+                            Style="{StaticResource OutlineButton}"
+                            Margin="16,0,16,24"
+                            x:Name="BtnViewAllOrders"
+                            Clicked="OnViewAllOrdersClicked"/>
+
+                    </VerticalStackLayout>
+                </ScrollView>
+
+                <!-- ─────────────────────────────────────────── -->
+                <!--  ROW 2 : BOTTOM NAVIGATION BAR              -->
+                <!-- ─────────────────────────────────────────── -->
+                <Border Grid.Row="2"
+                    BackgroundColor="{StaticResource White}"
+                    StrokeThickness="0"
+                    Shadow="{StaticResource CardShadow}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="0"/>
+                    </Border.StrokeShape>
+                    <Grid ColumnDefinitions="*,*,*,*,*"
+                      Padding="0,8,0,28">
+
+                        <!-- Home -->
+                        <VerticalStackLayout Grid.Column="0"
+                                         HorizontalOptions="Center"
+                                         Spacing="3">
+                            <Label Text="🏠"
+                               FontSize="22"
+                               HorizontalOptions="Center"/>
+                            <Label Text="Home"
+                               FontSize="10"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource PrimaryRed}"
+                               HorizontalOptions="Center"/>
+                            <BoxView Color="{StaticResource PrimaryRed}"
+                                 HeightRequest="3"
+                                 WidthRequest="20"
+                                 CornerRadius="2"
+                                 HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+
+                        <!-- Categories -->
+                        <VerticalStackLayout Grid.Column="1"
+                                         HorizontalOptions="Center"
+                                         Spacing="3">
+                            <Button Text="🗂️"
+                                BackgroundColor="Transparent"
+                                FontSize="22"
+                                HeightRequest="30"
+                                Padding="0"
+                                x:Name="BtnNavCategories"
+                                Clicked="OnNavCategoriesClicked"/>
+                            <Label Text="Categories"
+                               FontSize="10"
+                               TextColor="{StaticResource TextLight}"
+                               HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+
+                        <!-- Cart (center FAB) -->
+                        <Grid Grid.Column="2" HorizontalOptions="Center">
+                            <Border BackgroundColor="{StaticResource PrimaryRed}"
+                                StrokeThickness="0"
+                                HeightRequest="56"
+                                WidthRequest="56"
+                                Margin="0,-20,0,0"
+                                HorizontalOptions="Center">
+                                <Border.StrokeShape>
+                                    <Ellipse/>
+                                </Border.StrokeShape>
+                                <Border.Shadow>
+                                    <Shadow Brush="#66EF4444" Offset="0,4" Radius="12" Opacity="0.5"/>
+                                </Border.Shadow>
+                                <Label Text="🛒"
+                                   FontSize="24"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                            </Border>
+                        </Grid>
+
+                        <!-- Wishlist -->
+                        <VerticalStackLayout Grid.Column="3"
+                                         HorizontalOptions="Center"
+                                         Spacing="3">
+                            <Button Text="❤️"
+                                BackgroundColor="Transparent"
+                                FontSize="22"
+                                HeightRequest="30"
+                                Padding="0"
+                                x:Name="BtnNavWishlist"
+                                Clicked="OnNavWishlistClicked"/>
+                            <Label Text="Wishlist"
+                               FontSize="10"
+                               TextColor="{StaticResource TextLight}"
+                               HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+
+                        <!-- Profile -->
+                        <VerticalStackLayout Grid.Column="4"
+                                         HorizontalOptions="Center"
+                                         Spacing="3">
+                            <Button Text="👤"
+                                BackgroundColor="Transparent"
+                                FontSize="22"
+                                HeightRequest="30"
+                                Padding="0"
+                                x:Name="BtnNavProfile"
+                                Clicked="OnNavProfileClicked"/>
+                            <Label Text="Profile"
+                               FontSize="10"
+                               TextColor="{StaticResource TextLight}"
+                               HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+
+                    </Grid>
+                </Border>
+
+            </Grid>
+        </ContentPage.Content>
+
+    </ContentPage>

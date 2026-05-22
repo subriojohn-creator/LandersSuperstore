@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LandersSuperstore.Pages.CreateAccountPage"
+             Title="CreateAccountPage">
+    <VerticalStackLayout
+        WidthRequest="360"
+        HeightRequest="640"
+        Padding="30,0"
+        Spacing="25"
+        BackgroundColor="DarkOliveGreen">
+
+        <Image
+         Source="https://www.maya.ph/hubfs/PayMaya%20Enterprise%20Files/Business%20Supermarket%20and%20Grocery/Supermarket%20Logo/Landers_logo.png"
+         VerticalOptions="Center"
+         HeightRequest="185"/>
+        
+        <Entry
+          x:Name="FirstnameEntry"
+          Text=""
+          Placeholder="First Name"
+          BackgroundColor="White"/>
+        
+        <Entry
+           x:Name="LastnameEntry"
+           Text=""
+           Placeholder="Last Name"
+           BackgroundColor="White"/>    
+        <Entry
+                x:Name="EmailEntry"
+                Text=""
+                Placeholder="Username or Email"
+                BackgroundColor="White"/>
+
+        <Entry
+            x:Name="PasswordEntry"
+            Text=""
+            Placeholder="Password"
+            BackgroundColor="White"
+             IsPassword="True"/>
+
+        <Entry x:Name="ConfirmPasswordEntry"
+                   Placeholder="Confirm Password"
+                   IsPassword="True"/>
+
+        <Picker x:Name="RolePicker" BackgroundColor="White"
+        Title="Select a role" TextColor="Black">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>User</x:String>
+                    <x:String>Seller</x:String>
+                    <x:String>Delivery Rider</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <Label x:Name="ErrorLabel"
+                   TextColor="Red"
+                   IsVisible="False"
+                   HorizontalOptions="Center"/>
+
+        <Button
+            x:Name="CreateButton1"
+            Text="Create Account"
+            FontAttributes="Bold"
+            TextColor="White"
+            Clicked="OnCreateClicked"
+            BackgroundColor="Blue"
+            HorizontalOptions="Center"/>
+
+     
+        
+    </VerticalStackLayout>
+</ContentPage>
