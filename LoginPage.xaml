@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LandersSuperstore.Pages.LoginPage"
+             Title="LoginPage">
+    <VerticalStackLayout
+        WidthRequest="360"
+        HeightRequest="640"
+        Padding="30,0"
+        Spacing="25"
+        BackgroundColor="DarkOliveGreen">
+
+        <Image
+            Source="https://www.maya.ph/hubfs/PayMaya%20Enterprise%20Files/Business%20Supermarket%20and%20Grocery/Supermarket%20Logo/Landers_logo.png"
+            VerticalOptions="Center"
+            HeightRequest="185"
+             />
+
+        <Label
+            Text=""
+            TextColor="White"
+            Style="{StaticResource Headline}"
+            SemanticProperties.HeadingLevel="Level1" />
+
+        <Entry
+            x:Name="EmailEntry"
+            Text="Email"
+            Placeholder="Username or Email"
+            BackgroundColor="White"
+           ></Entry>
+
+        <Entry
+            x:Name="PasswordEntry"
+            Text="Password"
+            Placeholder="Password"
+            BackgroundColor="White"
+             IsPassword="True"
+           />
+
+
+        <Button
+            x:Name="LogInButton"
+            Text="Log In"
+            BackgroundColor="LightGreen"
+            Clicked="OnLogInClicked"
+             />
+
+        <Button
+            x:Name="CreateButton"
+            Text="Don't Have An Account?"
+            FontAttributes="Bold"
+            TextColor="White"
+            Clicked="OnCreateClicked"
+            BackgroundColor="DarkOliveGreen"
+            HorizontalOptions="End"/>
+
+        <Button
+            x:Name="ForgotPasswordButton"
+            Text="Forgot Password?"
+            FontAttributes="Bold"
+            TextColor="White"
+            Clicked="OnForgotClicked"
+            BackgroundColor="DarkOliveGreen"
+            HorizontalOptions="End"/>
+
+    </VerticalStackLayout>
+
+</ContentPage>
